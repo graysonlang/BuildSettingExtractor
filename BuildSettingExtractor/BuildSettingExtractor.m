@@ -234,10 +234,10 @@ static NSSet *XcodeCompatibilityVersionStringSet(void) {
             NSString *configFileString = @"";
 
             // Add header comment
-            NSString *headerComment = [self headerCommentForFilename:filename];
-            if (headerComment) {
-                configFileString = [configFileString stringByAppendingString:headerComment];
-            }
+//            NSString *headerComment = [self headerCommentForFilename:filename];
+//            if (headerComment) {
+//                configFileString = [configFileString stringByAppendingString:headerComment];
+//            }
 
             // If the config name is not the shared config, we need to import the shared config
             if (![configName isEqualToString:self.sharedConfigName]) {
@@ -246,19 +246,7 @@ static NSSet *XcodeCompatibilityVersionStringSet(void) {
                 configFileString = [configFileString stringByAppendingString:includeDirective];
             }
 
-            // If there are no settings at all, add a comment that the lack of settings is on purpose
-            if ([settings isEqualToString:@""]) {
-                settings = [settings stringByAppendingString:@"\n\n"];
-                settings = [settings stringByAppendingString:@"//********************************************//\n"];
-                settings = [settings stringByAppendingString:@"//* Currently no build settings in this file *//\n"];
-                settings = [settings stringByAppendingString:@"//********************************************//"];
-
-                ;
-            } else {
-                // Add a few lines before first setting
-                configFileString = [configFileString stringByAppendingString:@"\n\n"];
-            }
-
+            configFileString = [configFileString stringByAppendingString:@"\n\n"];
             configFileString = [configFileString stringByAppendingString:settings];
 
             // Trim whitespace and newlines
